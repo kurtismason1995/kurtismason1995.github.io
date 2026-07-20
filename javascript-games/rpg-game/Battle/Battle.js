@@ -83,6 +83,7 @@ export class Battle {
         playerStateAnimal.xp = combatant.xp;
         playerStateAnimal.maxHp = combatant.maxHp;
         playerStateAnimal.level = combatant.level;
+        playerStateAnimal.status = combatant.status;
       }
     });
 
@@ -124,6 +125,11 @@ export class Battle {
         });
       },
       onWinner: (winner) => {
+        if (winner === "player") {
+          const reward = this.enemy.reward || 20;
+          window.playerState.addCoins(reward);
+          window.playerState.stats.battlesWon++;
+        }
         this.updatePlayerState();
         this.element.remove();
         this.onComplete(winner === "player");

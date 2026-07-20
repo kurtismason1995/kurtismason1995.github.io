@@ -46,6 +46,41 @@ export const Home = {
       ],
       talking: [
         {
+          required: ["DEFEATED_BOSS"],
+          events: [
+            {
+              type: "textMessage",
+              text: "Mum: You did it, Sam. Your dad is home and this town finally has hope again.",
+            },
+            {
+              type: "textMessage",
+              text: "Mum: Keep training your animals, there are still people who need your help.",
+            },
+          ],
+        },
+        {
+          required: ["ARENA_INVITATION"],
+          events: [
+            {
+              type: "textMessage",
+              text: "Mum: An invitation to the Hay Tournament? That sounds like a trap, so be careful.",
+            },
+            {
+              type: "textMessage",
+              text: "Mum: Your dad always said courage and kindness make the strongest team.",
+            },
+          ],
+        },
+        {
+          required: ["SEEN_OLDMAN_CUTSCENE"],
+          events: [
+            {
+              type: "textMessage",
+              text: "Mum: Did the old man help you choose another partner? Good, you will need a balanced lineup.",
+            },
+          ],
+        },
+        {
           events: [
             {
               type: "textMessage",

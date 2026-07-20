@@ -43,49 +43,55 @@
       <section class="home" id="home">
         <div class="container home-container">
           <div class="intro-container">
-            <p class="sub-text">Developer</p>
+            <p class="eyebrow">Full-stack developer</p>
             <h1 class="fs-primary-heading">Hi, I'm <span>Kurtis</span></h1>
             <p class="sub-text">Crafting digital experiences</p>
           </div>
           <div class="css-art">
             <div class="background">
-              <div class="sky">
-                <div class="moon">
-                  <div class="crater crater1"></div>
-                  <div class="crater crater2"></div>
-                  <div class="crater crater3"></div>
+                <div class="sky">
+                  <div class="sun"></div>
+                  <div class="cloud cloud1"></div>
+                  <div class="cloud cloud2"></div>
+                  <div class="moon">
+                    <div class="crater crater1"></div>
+                    <div class="crater crater2"></div>
+                    <div class="crater crater3"></div>
+                  </div>
+                  <div class="star star1"><span>&#10022;</span></div>
+                  <div class="star star2"><span>&#10022;</span></div>
+                  <div class="star star3"><span>&#10022;</span></div>
+                  <div class="dot1"></div>
+                  <div class="dot2"></div>
                 </div>
-                <div class="star star1"><span>&#10022;</span></div>
-                <div class="star star2"><span>&#10022;</span></div>
-                <div class="star star3"><span>&#10022;</span></div>
-                <div class="dot1"></div>
-                <div class="dot2"></div>
+              </div>
+              <div class="foreground">
+                <div class="mountain1"></div>
+                <div class="mountain2"></div>
+                <div class="mountain3"></div>
+                <div class="mountain4"></div>
+                <div class="ground1"></div>
+                <div class="ground2"></div>
+                <div class="ground3"></div>
+                <div class="cliff1"></div>
               </div>
             </div>
-            <div class="foreground">
-              <div class="mountain1"></div>
-              <div class="mountain2"></div>
-              <div class="mountain3"></div>
-              <div class="mountain4"></div>
-              <div class="ground1"></div>
-              <div class="ground2"></div>
-              <div class="ground3"></div>
-              <div class="cliff1"></div>
-            </div>
-          </div>
         </div>
       </section>
 
       <section class="about" id="about">
         <div class="about-container">
           <div class="col-1">
-            <div class="img"><img src="assets/about.jpg" alt="" /></div>
+            <div class="img">
+              <img src="assets/about.jpg" alt="Kurtis Mason" />
+            </div>
           </div>
           <div class="col-2">
+            <p class="section-label">01 / About</p>
             <h1 class="fs-primary-heading">About me</h1>
             <p>
               I am a skilled full-stack developer with expertise in Angular,
-              SQL, and C#. With over 3 years of experience, I have a deep
+              SQL, and C#. With over 6 years of experience, I have a deep
               understanding of the software development life cycle. I stay
               up-to-date with the latest trends and best practices through
               online courses, conventions, and hackathons. My passion for my
@@ -99,9 +105,24 @@
             <div class="experience-grid">
               <div class="skills">
                 <h2>Skills</h2>
+                <div class="skill-icons" aria-label="Skills">
+                  <i class="fa-brands fa-angular" title="Angular"></i>
+                  <i class="fa-brands fa-js" title="JavaScript"></i>
+                  <i class="fa-solid fa-code" title="HTML and CSS"></i>
+                  <i class="fa-solid fa-server" title="C# and APIs"></i>
+                  <i class="fa-solid fa-database" title="SQL"></i>
+                  <i class="fa-brands fa-git-alt" title="Git and GitHub"></i>
+                </div>
               </div>
               <div class="experience">
                 <h2>Experience</h2>
+                <div class="experience-list">
+                  <p><strong>Frontend:</strong> Angular, JavaScript, HTML5, CSS3, and responsive UI work.</p>
+                  <p><strong>Backend:</strong> C#, API integration, application logic, and clean data flow.</p>
+                  <p><strong>Data:</strong> SQL queries, relational design, and working with structured data.</p>
+                  <p><strong>Tools:</strong> Git, GitHub, debugging, and collaborative development workflows.</p>
+                  <p><strong>Focus:</strong> 6+ years building full-stack projects with maintainable code and polished user experiences.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -109,6 +130,7 @@
       </section>
 
       <section class="projects container" id="projects">
+        <p class="section-label">02 / Selected work</p>
         <h1 class="fs-primary-heading">Projects</h1>
         <div class="project-list">
           <div class="card">
@@ -118,9 +140,8 @@
               <p class="description">
                 A small RPG game written in html, css and javascript.
               </p>
-              <a href="./javascript-games/rpg-game/index.html"
-                ><button data-type="inverted" class="button">link</button></a
-              >
+              <a class="project-link" href="./javascript-games/rpg-game/index.html"
+                >Explore project <span aria-hidden="true">&rarr;</span></a>
             </div>
           </div>
           <div class="card">
@@ -131,9 +152,32 @@
                 A small set of canvas animations using javascript.
               </p>
 
-              <a href="./canvas-animations/index.html"
-                ><button data-type="inverted" class="button">link</button></a
-              >
+              <a class="project-link" href="./canvas-animations/index.html"
+                >Explore project <span aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/canvas-animations.png" alt="" />
+            <div class="card-layer">
+              <p class="title">Particle Drawing</p>
+              <p class="description">
+                An interactive radial drawing canvas that turns mouse movement
+                into mirrored particle trails.
+              </p>
+              <a class="project-link" href="./canvas-animations/index1.html"
+                >Explore project <span aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/canvas-animations.png" alt="" />
+            <div class="card-layer">
+              <p class="title">Interactive Particles</p>
+              <p class="description">
+                A canvas particle field with responsive motion and playful
+                physics interactions.
+              </p>
+              <a class="project-link" href="./canvas-animations/index2.html"
+                >Explore project <span aria-hidden="true">&rarr;</span></a>
             </div>
           </div>
         </div>

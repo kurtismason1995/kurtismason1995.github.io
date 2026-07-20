@@ -20,6 +20,10 @@ export class Progress {
           lineup: window.playerState.lineup,
           items: window.playerState.items,
           storyFlags: window.playerState.storyFlags,
+          coins: window.playerState.coins,
+          badges: window.playerState.badges,
+          stats: window.playerState.stats,
+          nextId: window.playerState.nextId,
         },
       })
     );
@@ -42,10 +46,11 @@ export class Progress {
       this.startingHeroX = file.startingHeroX;
       this.startingHeroY = file.startingHeroY;
       this.startingHeroDirection = file.startingHeroDirection;
-      window.playerState.animals = file.playerState.animals;
-      window.playerState.lineup = file.playerState.lineup;
-      window.playerState.items = file.playerState.items;
-      window.playerState.storyFlags = file.playerState.storyFlags;
+      Object.assign(window.playerState, file.playerState);
+      window.playerState.coins ||= 0;
+      window.playerState.badges ||= [];
+      window.playerState.stats ||= { battlesWon: 0, animalsRescued: 0 };
+      window.playerState.nextId ||= 1;
     }
   }
 }

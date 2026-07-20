@@ -4,6 +4,7 @@ import { SceneTransition } from "./SceneTransition.js";
 import { Battle } from "./Battle/Battle.js";
 import { PauseMenu } from "./PauseMenu.js";
 import { CraftingMenu } from "./CraftingMenu.js";
+import { ShopMenu } from "./ShopMenu.js";
 
 export class GameEvent {
   constructor({ map, event }) {
@@ -130,10 +131,28 @@ export class GameEvent {
     resolve();
   }
 
+  addCoins(resolve) {
+    window.playerState.addCoins(this.event.amount);
+    resolve();
+  }
+
+  addBadge(resolve) {
+    window.playerState.addBadge(this.event.badgeId);
+    resolve();
+  }
+
   healAnimals(resolve) {
     window.playerState.healAnimals();
     utils.emitEvent("PlayerStateUpdated");
     resolve();
+  }
+
+  shop(resolve) {
+    const menu = new ShopMenu({
+      inventory: this.event.inventory,
+      onComplete: () => resolve(),
+    });
+    menu.init(document.querySelector(".game-container"));
   }
 
   pause(resolve) {

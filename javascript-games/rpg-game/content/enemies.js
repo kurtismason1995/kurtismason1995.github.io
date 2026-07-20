@@ -15,12 +15,12 @@ window.Enemies = {
     src: "./assets/characters/people/kid2.png",
     animals: {
       a: {
-        animalId: "Pyrogoat",
+        animalId: "Cinderhog",
         maxHp: 60,
         level: 1,
       },
       b: {
-        animalId: "RockClaw",
+        animalId: "PebbleRam",
         maxHp: 60,
         level: 1,
       },
@@ -47,7 +47,7 @@ window.Enemies = {
     src: "./assets/characters/people/kid4.png",
     animals: {
       a: {
-        animalId: "Grasserpent",
+        animalId: "Fernhorn",
         maxHp: 80,
         level: 2,
       },
@@ -69,7 +69,7 @@ window.Enemies = {
     src: "./assets/characters/people/kid.png",
     animals: {
       a: {
-        animalId: "Pyrogoat",
+        animalId: "Cinderhog",
         maxHp: 80,
         level: 2,
       },
@@ -142,12 +142,12 @@ window.Enemies = {
     src: "./assets/characters/people/merchant1.png",
     animals: {
       a: {
-        animalId: "Sparksqueak",
+        animalId: "Shadeferret",
         maxHp: 80,
         level: 2,
       },
       b: {
-        animalId: "Grassmoo",
+        animalId: "Fernhorn",
         maxHp: 80,
         level: 2,
       },
@@ -169,12 +169,12 @@ window.Enemies = {
     src: "./assets/characters/people/blacksmith.png",
     animals: {
       a: {
-        animalId: "Pyrogoat",
+        animalId: "Cinderhog",
         maxHp: 120,
         level: 3,
       },
       b: {
-        animalId: "Waterhog",
+        animalId: "Brookantler",
         maxHp: 120,
         level: 3,
       },
@@ -265,12 +265,12 @@ window.Enemies = {
     src: "./assets/characters/people/blacksmith2.png",
     animals: {
       a: {
-        animalId: "Grasserpent",
+        animalId: "Fernhorn",
         maxHp: 100,
         level: 3,
       },
       b: {
-        animalId: "Waterhog",
+        animalId: "Brookantler",
         maxHp: 100,
         level: 3,
       },
@@ -297,12 +297,12 @@ window.Enemies = {
     src: "./assets/characters/people/blacksmith2.png",
     animals: {
       a: {
-        animalId: "Sparksqueak",
+        animalId: "Cinderhog",
         maxHp: 150,
         level: 4,
       },
       b: {
-        animalId: "Wingcluck",
+        animalId: "Zephyrtail",
         maxHp: 150,
         level: 4,
       },

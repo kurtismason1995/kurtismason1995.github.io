@@ -98,6 +98,12 @@ export class Combatant {
         { type: "stateChange", recover: 15, onCaster: true },
       ];
     }
+    if (this.status?.type === "burned") {
+      return [
+        { type: "textMessage", text: `${this.name} is hurt by the burn!` },
+        { type: "stateChange", damage: 8, damageType: "fire", onCaster: true },
+      ];
+    }
     return [];
   }
 

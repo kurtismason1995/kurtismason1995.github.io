@@ -14,9 +14,27 @@ const oldManCutscene = [
       { who: "oldMan", type: "walk", direction: "right" },
       { who: "oldMan", type: "walk", direction: "right" },
       { type: "textMessage", text: "Your dad told me this might happen.", faceHero: "oldMan" },
+      {
+        type: "textMessage",
+        text: "He said if things ever went wrong, you would be brave enough to face them.",
+        faceHero: "oldMan",
+      },
       { type: "textMessage", text: "Take one of my animals for your journey, I'm getting too old to use them." },
-      { type: "craftingMenu", animals: ["Waterhog", "Grassmoo", "Wingcluck", "Grasserpent"] },
+      {
+        type: "textMessage",
+        text: "Each one has a different style. Pick the one that matches your strategy.",
+        faceHero: "oldMan",
+      },
+      {
+        type: "craftingMenu",
+        animals: ["Waterhog", "Grassmoo", "Wingcluck", "Grasserpent", "PebbleRam", "Zephyrtail", "Fernhorn"],
+      },
       { type: "textMessage", text: "You received a farm animal!" },
+      {
+        type: "textMessage",
+        text: "Remember, swap your lineup often. Different enemies demand different counters.",
+        faceHero: "oldMan",
+      },
       { who: "oldMan", type: "walk", direction: "left" },
       { who: "oldMan", type: "walk", direction: "left" },
       { who: "oldMan", type: "walk", direction: "left" },
@@ -73,6 +91,16 @@ export const OldManHouse = {
         { type: "walk", direction: "up" },
       ],
       talking: [
+        {
+          required: ["ARENA_INVITATION"],
+          events: [
+            {
+              type: "textMessage",
+              text: "So they invited you to the tournament? Keep your strongest animal healthy before every match.",
+              faceHero: "oldMan",
+            },
+          ],
+        },
         {
           required: ["SEEN_INTRO"],
           events: [

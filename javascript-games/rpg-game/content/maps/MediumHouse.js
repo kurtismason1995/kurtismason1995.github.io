@@ -53,10 +53,30 @@ export const MediumHouse = {
       behaviorLoop: [{ type: "stand", direction: "right", time: 1000 }],
       talking: [
         {
+          required: ["DEFEATED_BOSS"],
           events: [
             {
               type: "textMessage",
-              text: "He never tells me anything.",
+              text: "The secret meetings are over at last. It feels good to say that out loud.",
+              faceHero: "npc2",
+            },
+          ],
+        },
+        {
+          required: ["ARENA_INVITATION"],
+          events: [
+            {
+              type: "textMessage",
+              text: "I heard the arena is full of tough trainers. Do not be afraid to return home and rest.",
+              faceHero: "npc2",
+            },
+          ],
+        },
+        {
+          events: [
+            {
+              type: "textMessage",
+              text: "He never tells me anything, but I know that plant means more than he admits.",
               faceHero: "npc2",
             },
           ],
@@ -70,6 +90,16 @@ export const MediumHouse = {
       src: "./assets/characters/people/kid.png",
       behaviorLoop: [{ type: "stand", direction: "up", time: 1000 }],
       talking: [
+        {
+          required: ["DEFEATED_BOSS"],
+          events: [
+            {
+              type: "textMessage",
+              text: "Dad says the town will put up a painting of you and your animals one day.",
+              faceHero: "npc3",
+            },
+          ],
+        },
         {
           events: [
             {

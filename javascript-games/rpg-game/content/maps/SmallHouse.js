@@ -20,6 +20,26 @@ export const SmallHouse = {
       behaviorLoop: [{ type: "stand", direction: "up", time: 1000 }],
       talking: [
         {
+          required: ["DEFEATED_BOSS"],
+          events: [
+            {
+              type: "textMessage",
+              text: "We are still celebrating your victory. Mum says you are the town's bravest animal trainer!",
+              faceHero: "npc1",
+            },
+          ],
+        },
+        {
+          required: ["ARENA_INVITATION"],
+          events: [
+            {
+              type: "textMessage",
+              text: "You are going to the Hay Tournament? I hope your animals do their coolest moves!",
+              faceHero: "npc1",
+            },
+          ],
+        },
+        {
           events: [
             {
               type: "textMessage",
@@ -38,10 +58,48 @@ export const SmallHouse = {
       behaviorLoop: [{ type: "stand", direction: "up", time: 1000 }],
       talking: [
         {
+          required: ["DEFEATED_BOSS"],
           events: [
             {
               type: "textMessage",
-              text: "Where is she hiding, she never eats her vegetables.",
+              text: "Your pack looks wonderful, Sam. Let me make sure they stay that way.",
+              faceHero: "npc2",
+            },
+            { type: "healAnimals" },
+            {
+              type: "textMessage",
+              text: "All of your animals are fully rested. Come back whenever they need care.",
+              faceHero: "npc2",
+            },
+          ],
+        },
+        {
+          required: ["ARENA_INVITATION"],
+          events: [
+            {
+              type: "textMessage",
+              text: "A tournament can wear any animal out. Hand them over and I will patch up the whole pack.",
+              faceHero: "npc2",
+            },
+            { type: "healAnimals" },
+            {
+              type: "textMessage",
+              text: "Your animals are fully healed. Watch their strengths and weaknesses in the arena.",
+              faceHero: "npc2",
+            },
+          ],
+        },
+        {
+          events: [
+            {
+              type: "textMessage",
+              text: "I am the village animal carer. Would you like me to heal every animal in your pack?",
+              faceHero: "npc2",
+            },
+            { type: "healAnimals" },
+            {
+              type: "textMessage",
+              text: "There we go. Your whole pack is fully healed, so take care of them out there.",
               faceHero: "npc2",
             },
           ],
@@ -56,10 +114,20 @@ export const SmallHouse = {
       behaviorLoop: [{ type: "stand", direction: "right", time: 1000 }],
       talking: [
         {
+          required: ["DEFEATED_BOSS"],
           events: [
             {
               type: "textMessage",
-              text: "Shhhhh!! I'm hiding hehe",
+              text: "I was not hiding. I was listening for the celebration outside!",
+              faceHero: "npc3",
+            },
+          ],
+        },
+        {
+          events: [
+            {
+              type: "textMessage",
+              text: "Shhhhh! I am hiding, but the animal carer can make your pack feel better.",
               faceHero: "npc3",
             },
           ],

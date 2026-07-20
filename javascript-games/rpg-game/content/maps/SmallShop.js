@@ -25,6 +25,17 @@ export const SmallShop = {
               type: "textMessage",
               text: "Welcome, what are you after?",
             },
+            {
+              type: "textMessage",
+              text: "I can give every animal in your pack a full health check while you are here.",
+              faceHero: "npc1",
+            },
+            { type: "healAnimals" },
+            {
+              type: "textMessage",
+              text: "All done. Your whole pack is fully healed and ready for another adventure.",
+              faceHero: "npc1",
+            },
           ],
         },
       ],

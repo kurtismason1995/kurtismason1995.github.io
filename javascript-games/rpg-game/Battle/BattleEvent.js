@@ -110,11 +110,17 @@ export class BattleEvent {
     }
 
     if (damage) {
-      const damageTypeMultiplier = determineMultiplier(damageType, target.type);
-      const levelDiff = caster.level - target.level;
+      const damageTarget = this.event.onCaster ? caster : target;
+      const damageTypeMultiplier = determineMultiplier(damageType, damageTarget.type);
+      const levelDiff = caster.level - damageTarget.level;
       const levelMultiplier = 1 + 0.2 * levelDiff;
+      const guardMultiplier = damageTarget.status?.type === "harden" ? 0.7 : 1;
       const actualDamage =
-        damage * (caster.attack / target.defense) * damageTypeMultiplier * Math.max(0.3, levelMultiplier);
+        damage *
+        (caster.attack / damageTarget.defense) *
+        damageTypeMultiplier *
+        Math.max(0.3, levelMultiplier) *
+        guardMultiplier;
 
       console.log(
         "damage",
@@ -125,9 +131,9 @@ export class BattleEvent {
         )}`
       );
       target.update({
-        hp: target.hp - actualDamage,
+        hp: Math.max(0, damageTarget.hp - actualDamage),
       });
-      target.animalElement.classList.add("battle-damage-blink");
+      damageTarget.animalElement.classList.add("battle-damage-blink");
     }
 
     if (recover) {
@@ -152,7 +158,8 @@ export class BattleEvent {
     this.battle.playerTeam.update();
     this.battle.enemyTeam.update();
 
-    target.animalElement.classList.remove("battle-damage-blink");
+    const affectedAnimal = damage && this.event.onCaster ? caster : target;
+    affectedAnimal.animalElement.classList.remove("battle-damage-blink");
     resolve();
   }
 
@@ -193,10 +200,12 @@ export class BattleEvent {
         amount--;
         combatant.xp++;
 
-        if (combatant.xp === combatant.maxXp) {
-          combatant.xp = 0;
-          combatant.maxXp = 100;
+        if (combatant.xp >= combatant.maxXp) {
+          combatant.xp -= combatant.maxXp;
           combatant.level++;
+          combatant.maxXp = 100 + (combatant.level - 1) * 35;
+          combatant.maxHp += 8;
+          combatant.hp = Math.min(combatant.maxHp, combatant.hp + 8);
         }
 
         combatant.update();
@@ -229,6 +238,10 @@ export class BattleEvent {
 
   animation(resolve) {
     const fn = BattleAnimations[this.event.animation];
+    if (!fn) {
+      resolve();
+      return;
+    }
     fn(this.event, resolve);
   }
 

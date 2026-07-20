@@ -25,6 +25,16 @@ export class PauseMenu {
       return [
         ...lineupAnimals,
         {
+          label: `Satchel: ${window.playerState.items.length} items`,
+          description: `${window.playerState.coins || 0} farm coins. Items can be used in battle.`,
+          handler: () => {},
+        },
+        {
+          label: `Badges: ${(window.playerState.badges || []).length}`,
+          description: "Win named challenges to earn farm badges.",
+          handler: () => {},
+        },
+        {
           label: "Save",
           description: "Save your progress",
           handler: () => {

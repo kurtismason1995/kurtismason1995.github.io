@@ -20,10 +20,52 @@ export const LocalShop = {
       behaviorLoop: [{ type: "stand", direction: "down", time: 1000 }],
       talking: [
         {
+          required: ["DEFEATED_BOSS"],
           events: [
             {
               type: "textMessage",
-              text: "Welcome, what are you after?",
+              text: "Champion Sam! Today all supplies are top quality. Your animals earned it.",
+            },
+            {
+              type: "shop",
+              inventory: [
+                { itemId: "item_hayBale", price: 20 },
+                { itemId: "item_flySpray", price: 30 },
+                { itemId: "item_dustBath", price: 35 },
+              ],
+            },
+          ],
+        },
+        {
+          required: ["ARENA_INVITATION"],
+          events: [
+            {
+              type: "textMessage",
+              text: "Heading into the tournament? Stock up now, those rounds get brutal.",
+            },
+            {
+              type: "shop",
+              inventory: [
+                { itemId: "item_hayBale", price: 20 },
+                { itemId: "item_flySpray", price: 30 },
+                { itemId: "item_dustBath", price: 35 },
+              ],
+            },
+          ],
+        },
+        {
+          events: [
+            {
+              type: "textMessage",
+              text: "Welcome to the farm supply shop. Spend your battle coins wisely.",
+            },
+            {
+              type: "shop",
+              inventory: [
+                { itemId: "item_hayBale", price: 20 },
+                { itemId: "item_flySpray", price: 30 },
+                { itemId: "item_dustBath", price: 35 },
+              ],
             },
           ],
         },

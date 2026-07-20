@@ -77,6 +77,119 @@ window.Actions = {
       { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
     ],
   },
+  emberTrail: {
+    name: "Ember Trail",
+    description: "Scorches the opponent for immediate damage and lingering burn damage.",
+    type: "fire",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "glob", color: "red" },
+      { type: "stateChange", damage: 24, damageType: "fire" },
+      { type: "stateChange", status: { type: "burned", expiresIn: 3 } },
+      { type: "textMessage", text: "{TARGET} is burned!" },
+    ],
+  },
+  vineWhip: {
+    name: "Vine Whip",
+    description: "A quick nature attack that restores a little health to its user.",
+    type: "nature",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "spin" },
+      { type: "stateChange", damage: 28, damageType: "nature" },
+      { type: "stateChange", recover: 10, onCaster: true },
+      { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
+    ],
+  },
+  tidalCrash: {
+    name: "Tidal Crash",
+    description: "A powerful water strike with a longer recovery window.",
+    type: "water",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "glob", color: "blue" },
+      { type: "stateChange", damage: 42, damageType: "water" },
+      { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
+    ],
+  },
+  seismicCrash: {
+    name: "Seismic Crash",
+    description: "Slams the ground and sends a shockwave through the arena.",
+    type: "stone",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "quake" },
+      { type: "stateChange", damage: 36, damageType: "stone" },
+      { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
+    ],
+  },
+  skyDive: {
+    name: "Sky Dive",
+    description: "Launches forward on a slicing gust of wind.",
+    type: "fly",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "gust" },
+      { type: "stateChange", damage: 34, damageType: "fly" },
+      { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
+    ],
+  },
+  cinderCyclone: {
+    name: "Cinder Cyclone",
+    description: "Whirls embers into a burning spiral that chars the target.",
+    type: "fire",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "flare", color: "#ff8a24" },
+      { type: "stateChange", damage: 30, damageType: "fire" },
+      { type: "stateChange", status: { type: "burned", expiresIn: 2 } },
+      { type: "textMessage", text: "{TARGET} is burned!" },
+    ],
+  },
+  riptideRing: {
+    name: "Riptide Ring",
+    description: "A spinning ring of water crashes into the foe.",
+    type: "water",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "surge", color: "#34b3ff" },
+      { type: "stateChange", damage: 34, damageType: "water" },
+      { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
+    ],
+  },
+  umbraPounce: {
+    name: "Umbra Pounce",
+    description: "Leaps from the shadows with a heavy strike.",
+    type: "shadow",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "eclipse" },
+      { type: "stateChange", damage: 35, damageType: "shadow" },
+      { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
+    ],
+  },
+  thornVolley: {
+    name: "Thorn Volley",
+    description: "Launches sharp thorns and siphons a little vitality.",
+    type: "nature",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "animation", animation: "bloom", color: "#63b84d" },
+      { type: "stateChange", damage: 31, damageType: "nature" },
+      { type: "stateChange", recover: 8, onCaster: true },
+      { type: "textMessage", text: "It's {EFFECTIVENESS} effective." },
+    ],
+  },
+  stoneWall: {
+    name: "Stone Wall",
+    targetType: "friendly",
+    description: "Raises a sturdy guard that reduces incoming damage for three turns.",
+    success: [
+      { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
+      { type: "stateChange", status: { type: "harden", expiresIn: 3 } },
+      { type: "textMessage", text: "{CASTER} is protected by stone!" },
+    ],
+  },
 
   // Friendly
   harden: {
