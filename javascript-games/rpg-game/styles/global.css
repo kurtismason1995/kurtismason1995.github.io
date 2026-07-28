@@ -16,19 +16,125 @@ body {
   background: #333;
   padding: 0;
   margin: 0;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: "Ribeye", cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 0 28px;
 }
 
 .game-container {
   position: relative;
-  width: 352px;
-  height: 198px;
+  width: min(1056px, calc(100vw - 24px));
+  aspect-ratio: 352 / 198;
   margin: 0 auto;
   outline: 1px solid white;
-  transform: scale(3) translateY(50%);
+  background: #000;
 }
 
 .game-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
   image-rendering: pixelated;
+}
+
+.mobile-controls {
+  width: min(1056px, calc(100vw - 24px));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px 28px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.mobile-controls__pad {
+  position: relative;
+  width: 176px;
+  height: 176px;
+}
+
+.mobile-controls__actions {
+  display: flex;
+  gap: 14px;
+}
+
+.mobile-controls__button {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 2px solid #fff;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+  font-family: inherit;
+  cursor: pointer;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-controls__button:active,
+.mobile-controls__button.is-active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+  background: #7fc2ff;
+  color: #291d4d;
+}
+
+.mobile-controls__button--up,
+.mobile-controls__button--left,
+.mobile-controls__button--down,
+.mobile-controls__button--right {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  font-size: 28px;
+}
+
+.mobile-controls__button--up {
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.mobile-controls__button--left {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-controls__button--down {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.mobile-controls__button--right {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-controls__button--action {
+  width: 74px;
+  height: 74px;
+  border-radius: 999px;
+  font-size: 32px;
+}
+
+@media (max-width: 520px) {
+  .mobile-controls {
+    gap: 14px;
+  }
+
+  .mobile-controls__actions {
+    width: 100%;
+    justify-content: center;
+  }
 }
