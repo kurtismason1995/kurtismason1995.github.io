@@ -1,0 +1,72 @@
+.TouchControls {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .TouchControls {
+    position: fixed;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: max(16px, env(safe-area-inset-left));
+    z-index: 10;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    pointer-events: none;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .TouchControls button {
+    width: 56px;
+    height: 56px;
+    border: 2px solid #fff3b4;
+    border-radius: 8px;
+    background: rgba(41, 29, 77, 0.86);
+    color: #fff3b4;
+    font: 16px "Ribeye", cursive;
+    pointer-events: auto;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .TouchControls button:active {
+    background: #7fc2ff;
+    color: #291d4d;
+  }
+
+  .TouchControls_dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 56px);
+    grid-template-rows: repeat(2, 56px);
+    gap: 4px;
+  }
+
+  .TouchControls_up {
+    grid-column: 2;
+  }
+
+  .TouchControls_left {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .TouchControls_right {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .TouchControls_down {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .TouchControls_actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .TouchControls_actions .TouchControls_button:last-child {
+    font-size: 10px;
+  }
+}

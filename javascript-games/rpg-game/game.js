@@ -5,6 +5,7 @@ import { Hud } from "./Hud.js";
 import { Progress } from "./Progress.js";
 import { TitleScreen } from "./TitleScreen.js";
 import { SceneTransition } from "./SceneTransition.js";
+import { TouchControls } from "./TouchControls.js";
 
 export class Game {
   constructor(config) {
@@ -125,6 +126,9 @@ export class Game {
       progress: this.progress,
     });
     const useSaveFile = await this.titleScreen.init(container);
+
+    this.touchControls = new TouchControls();
+    this.touchControls.init();
 
     // Potentially load saved data
     let initialHeroState = null;

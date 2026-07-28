@@ -1,6 +1,6 @@
 .Hud {
   position: absolute;
-  left: 2px;
+  left: 15px;
   top: 10px;
   image-rendering: pixelated;
 }
