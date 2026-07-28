@@ -1,6 +1,5 @@
 import { GameMap } from "./GameMap.js";
 import { DirectionInput } from "./DirectionInput.js";
-import { MobileControls } from "./MobileControls.js";
 import { KeyPressListener } from "./KeyPressListener.js";
 import { Hud } from "./Hud.js";
 import { Progress } from "./Progress.js";
@@ -152,19 +151,6 @@ export class Game {
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();
-
-    this.mobileControls = new MobileControls({
-      directionInput: this.directionInput,
-      onConfirm: () => {
-        this.map.checkForActionCutscene();
-      },
-      onCancel: () => {
-        if (!this.map.isCutScenePlaying && !this.map.isPaused) {
-          this.map.startCustscene([{ type: "pause" }]);
-        }
-      },
-    });
-    this.mobileControls.init(container);
 
     // Start game loop
     this.startGameLoop();

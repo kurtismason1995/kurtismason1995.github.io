@@ -18,28 +18,20 @@ export class DirectionInput {
     return this.heldDirections[0];
   }
 
-  press(direction) {
-    if (direction && this.heldDirections.indexOf(direction) === -1) {
-      this.heldDirections.unshift(direction);
-    }
-  }
-
-  release(direction) {
-    const index = this.heldDirections.indexOf(direction);
-    if (direction && index !== -1) {
-      this.heldDirections.splice(index, 1);
-    }
-  }
-
   init() {
     document.addEventListener("keydown", (e) => {
       const dir = this.map[e.code];
-      this.press(dir);
+      if (dir && this.heldDirections.indexOf(dir) === -1) {
+        this.heldDirections.unshift(dir);
+      }
     });
 
     document.addEventListener("keyup", (e) => {
       const dir = this.map[e.code];
-      this.release(dir);
+      const index = this.heldDirections.indexOf(dir);
+      if (dir && index !== -1) {
+        this.heldDirections.splice(index, 1);
+      }
     });
   }
 }
