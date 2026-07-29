@@ -5,6 +5,23 @@
   image-rendering: pixelated;
 }
 
+.Hud_progress {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  font-size: 7px;
+  line-height: 1;
+  color: #2f1810;
+}
+
+.Hud_stat {
+  padding: 3px 4px;
+  border: 1px solid #2f1810;
+  background: #f8e8b8;
+  box-shadow: 1px 1px 0 #8f593c;
+  white-space: nowrap;
+}
+
 .Hud .Combatant {
   position: relative;
   margin-bottom: 10px;

@@ -93,6 +93,22 @@ export class Game {
     });
   }
 
+  autoSave() {
+    const hero = this.map?.gameObjects.hero;
+    if (hero) {
+      this.progress.startingHeroX = hero.x;
+      this.progress.startingHeroY = hero.y;
+      this.progress.startingHeroDirection = hero.direction;
+    }
+    this.progress.save();
+  }
+
+  bindAutoSave() {
+    document.addEventListener("PlayerStateUpdated", () => {
+      this.autoSave();
+    });
+  }
+
   startMap(mapConfig, heroInitialState = null, sceneTransition) {
     this.map = new GameMap(mapConfig, sceneTransition);
     this.map.game = this;
@@ -113,6 +129,8 @@ export class Game {
     if (heroInitialState) {
       this.map.checkForFootstepCutscene();
     }
+
+    this.autoSave();
   }
 
   async init() {
@@ -152,6 +170,7 @@ export class Game {
     // Create controls
     this.bindActionInput();
     this.bindHeroPositionCheck();
+    this.bindAutoSave();
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();

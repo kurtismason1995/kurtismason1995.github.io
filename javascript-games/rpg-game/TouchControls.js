@@ -34,6 +34,7 @@ export class TouchControls {
 
       button.addEventListener("pointerdown", (event) => {
         event.preventDefault();
+        button.setPointerCapture(event.pointerId);
         this.emitKey(key, "keydown");
       });
 
@@ -41,6 +42,10 @@ export class TouchControls {
         event.preventDefault();
         this.emitKey(key, "keyup");
       };
+
+      button.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+      });
 
       if (isDirection) {
         button.addEventListener("pointerup", release);

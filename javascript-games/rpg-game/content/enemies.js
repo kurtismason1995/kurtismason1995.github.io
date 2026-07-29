@@ -75,6 +75,40 @@ window.Enemies = {
       },
     },
   },
+  Sprout: {
+    name: "Sprout",
+    src: "./assets/characters/people/kid3.png",
+    reward: 8,
+    animals: {
+      a: {
+        animalId: "Wingcluck",
+        maxHp: 55,
+        level: 1,
+      },
+      b: {
+        animalId: "PebbleRam",
+        maxHp: 55,
+        level: 1,
+      },
+    },
+  },
+  Mara: {
+    name: "Mara",
+    src: "./assets/characters/people/kid4.png",
+    reward: 15,
+    animals: {
+      a: {
+        animalId: "Fernhorn",
+        maxHp: 85,
+        level: 2,
+      },
+      b: {
+        animalId: "Waterhog",
+        maxHp: 85,
+        level: 2,
+      },
+    },
+  },
 
   Max: {
     name: "Max",

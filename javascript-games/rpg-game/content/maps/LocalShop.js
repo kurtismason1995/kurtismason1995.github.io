@@ -71,6 +71,25 @@ export const LocalShop = {
         },
       ],
     },
+    trainingRival: {
+      type: "Person",
+      x: utils.withGrid(4),
+      y: utils.withGrid(7),
+      src: "./assets/characters/people/kid4.png",
+      behaviorLoop: [{ type: "stand", direction: "down", time: 1000 }],
+      talking: [
+        {
+          events: [
+            {
+              type: "textMessage",
+              text: "I'm Mara. My team is tougher, but rematches are the best way to grow.",
+              faceHero: "trainingRival",
+            },
+            { type: "battle", enemyId: "Mara" },
+          ],
+        },
+      ],
+    },
   },
   walls: {
     [utils.asGridCoord(2, 5)]: true,

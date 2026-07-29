@@ -74,6 +74,25 @@ export const SmallShop = {
         { type: "walk", direction: "up" },
       ],
     },
+    trainingKid: {
+      type: "Person",
+      x: utils.withGrid(7),
+      y: utils.withGrid(6),
+      src: "./assets/characters/people/kid3.png",
+      behaviorLoop: [{ type: "stand", direction: "down", time: 1000 }],
+      talking: [
+        {
+          events: [
+            {
+              type: "textMessage",
+              text: "I'm Sprout. Want to practice? You can challenge me as often as you like.",
+              faceHero: "trainingKid",
+            },
+            { type: "battle", enemyId: "Sprout" },
+          ],
+        },
+      ],
+    },
   },
   walls: {
     [utils.asGridCoord(2, 4)]: true,

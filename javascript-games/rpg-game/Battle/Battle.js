@@ -3,6 +3,7 @@ import { TurnCycle } from "./TurnCycle.js";
 import { BattleEvent } from "./BattleEvent.js";
 import { Team } from "./Team.js";
 import { utils } from "../utils.js";
+import { TextMessage } from "../TextMessage.js";
 
 export class Battle {
   constructor({ enemy, onComplete, arena }) {
@@ -125,19 +126,29 @@ export class Battle {
         });
       },
       onWinner: (winner) => {
+        let resultMessage;
         if (winner === "player") {
           const reward = this.enemy.reward || 20;
           window.playerState.addCoins(reward);
           window.playerState.stats.battlesWon++;
+          resultMessage = `Victory! You earned ${reward} farm coins.`;
+        } else {
+          resultMessage = "Your team needs a rest. Regroup and try again.";
         }
         this.updatePlayerState();
         this.element.remove();
-        this.onComplete(winner === "player");
+        new TextMessage({
+          text: resultMessage,
+          onComplete: () => this.onComplete(winner === "player"),
+        }).init(document.querySelector(".game-container"));
       },
       onFlee: () => {
         this.updatePlayerState();
         this.element.remove();
-        this.onComplete(false);
+        new TextMessage({
+          text: "You escaped safely. Find a healer before your next battle.",
+          onComplete: () => this.onComplete(false),
+        }).init(document.querySelector(".game-container"));
       },
     });
 

@@ -9,6 +9,16 @@ export class Hud {
     this.scoreboards.forEach((scoreBoard) => {
       scoreBoard.update(window.playerState.animals[scoreBoard.id]);
     });
+
+    if (this.progressElement) {
+      const { coins, badges, stats } = window.playerState;
+      this.progressElement.innerHTML = `
+        <span class="Hud_stat">$${coins}</span>
+        <span class="Hud_stat">Wins ${stats.battlesWon}</span>
+        <span class="Hud_stat">Rescues ${stats.animalsRescued}</span>
+        <span class="Hud_stat">Badges ${badges.length}</span>
+      `;
+    }
   }
 
   createElement() {
@@ -19,6 +29,10 @@ export class Hud {
 
     this.element = document.createElement("div");
     this.element.classList.add("Hud");
+
+    this.progressElement = document.createElement("div");
+    this.progressElement.classList.add("Hud_progress");
+    this.element.appendChild(this.progressElement);
 
     const { playerState } = window;
     playerState.lineup.forEach((key) => {

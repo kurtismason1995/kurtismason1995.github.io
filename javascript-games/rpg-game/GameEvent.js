@@ -108,6 +108,7 @@ export class GameEvent {
 
   addStoryFlag(resolve) {
     window.playerState.storyFlags[this.event.flag] = true;
+    utils.emitEvent("PlayerStateUpdated");
     resolve();
   }
 
