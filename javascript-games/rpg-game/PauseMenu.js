@@ -6,6 +6,64 @@ export class PauseMenu {
   constructor({ progress, onComplete }) {
     this.progress = progress;
     this.onComplete = onComplete;
+    this.currentPageKey = "root";
+  }
+
+  getQuestOverview() {
+    const activeQuests = window.playerState.getActiveQuests();
+
+    if (!activeQuests.length) {
+      return {
+        label: "Quest Log: No active quests",
+        description: "Talk to townsfolk and explore new areas to discover objectives.",
+      };
+    }
+
+    return {
+      label: `Quest Log: ${activeQuests.length} active`,
+      description: "Open to review your active objectives and next steps.",
+    };
+  }
+
+  getQuestOptions() {
+    const activeQuests = window.playerState.getActiveQuests();
+
+    if (!activeQuests.length) {
+      return [
+        {
+          label: "No active quests",
+          description: "Pick up quests by speaking to NPCs with story hints.",
+          handler: () => {},
+        },
+        {
+          label: "Back",
+          description: "Back to the pause menu.",
+          handler: () => this.setMenuPage("root"),
+        },
+      ];
+    }
+
+    const questRows = activeQuests.map((quest) => {
+      const title = quest.title || quest.id;
+      const stepNumber = Number.isFinite(quest.step) ? quest.step : 0;
+      const nextStep = quest.nextStep || "Continue exploring for the next clue.";
+      const description = quest.description || "No quest details yet.";
+
+      return {
+        label: `${title} (Step ${stepNumber})`,
+        description: `${nextStep} ${description}`.trim(),
+        handler: () => {},
+      };
+    });
+
+    return [
+      ...questRows,
+      {
+        label: "Back",
+        description: "Back to the pause menu.",
+        handler: () => this.setMenuPage("root"),
+      },
+    ];
   }
 
   getCurrentGoal() {
@@ -68,6 +126,10 @@ export class PauseMenu {
       return this.getBadgeOptions();
     }
 
+    if (pageKey === "quests") {
+      return this.getQuestOptions();
+    }
+
     if (pageKey === "root") {
       const lineupAnimals = window.playerState.lineup.map((id) => {
         const { animalId } = playerState.animals[id];
@@ -96,6 +158,10 @@ export class PauseMenu {
           label: `Badges: ${(window.playerState.badges || []).length}`,
           description: "Win named challenges to earn farm badges.",
           handler: () => this.keyboardMenu.setOptions(this.getOptions("badges")),
+        },
+        {
+          ...this.getQuestOverview(),
+          handler: () => this.setMenuPage("quests"),
         },
         {
           label: "Save",
@@ -159,7 +225,32 @@ export class PauseMenu {
     this.element.classList.add("overlayMenu");
 
     this.element.innerHTML = `
-        <h2>Pause Menu</h2>`;
+        <h2>Pause Menu</h2>
+        <p class="PauseMenu__subtitle"></p>`;
+
+    this.subtitleElement = this.element.querySelector(".PauseMenu__subtitle");
+  }
+
+  setMenuPage(pageKey) {
+    this.currentPageKey = pageKey;
+    this.keyboardMenu.setOptions(this.getOptions(pageKey));
+    this.renderSubtitle();
+  }
+
+  renderSubtitle() {
+    const activeQuestCount = window.playerState.getActiveQuests().length;
+
+    if (this.currentPageKey === "quests") {
+      this.subtitleElement.textContent = `Active objectives: ${activeQuestCount}`;
+      return;
+    }
+
+    if (this.currentPageKey === "badges") {
+      this.subtitleElement.textContent = `Farm badges earned: ${(window.playerState.badges || []).length}`;
+      return;
+    }
+
+    this.subtitleElement.textContent = `Farm coins: ${window.playerState.coins || 0}`;
   }
 
   close() {
@@ -175,7 +266,7 @@ export class PauseMenu {
       descriptionContainer: container,
     });
     this.keyboardMenu.init(this.element);
-    this.keyboardMenu.setOptions(this.getOptions("root"));
+    this.setMenuPage("root");
     container.appendChild(this.element);
 
     await utils.wait(200);

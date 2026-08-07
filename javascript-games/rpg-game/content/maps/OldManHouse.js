@@ -45,6 +45,14 @@ const oldManCutscene = [
         type: "textMessage",
         text: "Best of luck, the secret society hangs out in the main town hall, follow the road east.",
       },
+      { type: "addStoryFlag", flag: "CHAPTER_1_INTRO_COMPLETE" },
+      { type: "addStoryFlag", flag: "CHAPTER_1_MID_STARTED" },
+      {
+        type: "advanceQuestStep",
+        questId: "quest_rescue_dad_ch1",
+        step: 2,
+        nextStep: "Head east into town and investigate the blue house meeting.",
+      },
     ],
   },
 ];

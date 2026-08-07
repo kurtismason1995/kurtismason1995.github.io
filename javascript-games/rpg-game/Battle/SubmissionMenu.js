@@ -39,7 +39,7 @@ export class SubmissionMenu {
       root: [
         {
           label: "Attack",
-          description: "Choose an attack",
+          description: `Choose an attack (Energy: ${this.caster.energy}/${this.caster.maxEnergy})`,
           handler: () => {
             // Do something when chosen...
             this.keyboardMenu.setOptions(this.getPages().attacks);
@@ -72,11 +72,29 @@ export class SubmissionMenu {
       attacks: [
         ...this.caster.actions.map((key) => {
           const action = Actions[key];
+          const disabled = !this.caster.canUseAction(key);
+          const blockReason = this.caster.getActionBlockReason(key);
+          const cost = this.caster.getActionEnergyCost(action);
+          const cooldownRemaining = this.caster.getActionCooldownRemaining(key);
+
           return {
             label: action.name,
-            description: action.description,
+            description: disabled
+              ? `${action.description} (${blockReason})`
+              : `${action.description} (Cost: ${cost} energy)`,
+            disabled,
+            right: () => {
+              const tags = [];
+              if (cost > 0) {
+                tags.push(`E${cost}`);
+              }
+              if (cooldownRemaining > 0) {
+                tags.push(`CD${cooldownRemaining}`);
+              }
+              return tags.join(" ");
+            },
             handler: () => {
-              this.menuSubmit(action);
+              this.menuSubmit(action, null, key);
             },
           };
         }),
@@ -92,7 +110,7 @@ export class SubmissionMenu {
               return `x${item.quantity}`;
             },
             handler: () => {
-              this.menuSubmit(action, item.instanceId);
+              this.menuSubmit(action, item.instanceId, item.actionId);
             },
           };
         }),
@@ -120,20 +138,23 @@ export class SubmissionMenu {
     });
   }
 
-  menuSubmit(action, instanceId = null) {
+  menuSubmit(action, instanceId = null, actionId = null) {
     this.keyboardMenu?.end();
 
     this.onComplete({
       action,
+      actionId,
       target: action.targetType === "friendly" ? this.caster : this.enemy,
       instanceId,
     });
   }
 
   decide() {
-    const index = Math.floor(Math.random() * this.caster.actions.length);
-    //TODO: Enemies should randomly decide what to do...
-    this.menuSubmit(Actions[this.caster.actions[index]]);
+    const availableActions = this.caster.getUsableActionIds();
+    const usable = availableActions.length ? availableActions : this.caster.actions;
+    const index = Math.floor(Math.random() * usable.length);
+    const actionId = usable[index];
+    this.menuSubmit(Actions[actionId], null, actionId);
   }
 
   showMenu(container) {

@@ -11,6 +11,9 @@ import { MediumHouse } from "./maps/MediumHouse.js";
 import { SmallHouse } from "./maps/SmallHouse.js";
 import { BigHouse } from "./maps/BigHouse.js";
 import { SmallShop } from "./maps/SmallShop.js";
+import { BramblePath } from "./maps/BramblePath.js";
+import { MillbrookCrossing } from "./maps/MillbrookCrossing.js";
+import { EmberlightTunnels } from "./maps/EmberlightTunnels.js";
 
 export class Maps {
   constructor() {
@@ -30,6 +33,10 @@ export class Maps {
 
       SmallShop,
       LocalShop,
+
+      BramblePath,
+      MillbrookCrossing,
+      EmberlightTunnels,
     };
   }
 }

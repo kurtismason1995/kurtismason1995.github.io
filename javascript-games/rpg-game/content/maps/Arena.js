@@ -5,6 +5,13 @@ const arenaCutscene = [
     exclude: "SEEN_ARENA_CUTSCENE",
     events: [
       { type: "addStoryFlag", flag: "SEEN_ARENA_CUTSCENE" },
+      { type: "addStoryFlag", flag: "CHAPTER_1_CLIMAX_STARTED" },
+      {
+        type: "advanceQuestStep",
+        questId: "quest_rescue_dad_ch1",
+        step: 4,
+        nextStep: "Defeat all four arena challengers to reach the leader.",
+      },
       { type: "textMessage", text: "Secret Leader: Welcome everyone to the Hay tournment" },
       { type: "walk", who: "hero", direction: "up" },
       { type: "walk", who: "hero", direction: "up" },
@@ -205,6 +212,14 @@ export const Arena = {
               arena: "room3_battle",
             },
             { type: "addStoryFlag", flag: "DEFEATED_ENEMY_4" },
+            { type: "addStoryFlag", flag: "CHAPTER_1_CLIMAX_COMPLETE" },
+            { type: "addStoryFlag", flag: "CHAPTER_1_FINALE_STARTED" },
+            {
+              type: "advanceQuestStep",
+              questId: "quest_rescue_dad_ch1",
+              step: 5,
+              nextStep: "Challenge the arena leader and break the group's control.",
+            },
           ],
         },
       ],
@@ -237,6 +252,14 @@ export const Arena = {
               arena: "room3_battle",
             },
             { type: "addStoryFlag", flag: "DEFEATED_BOSS" },
+            { type: "addStoryFlag", flag: "CHAPTER_1_FINALE_COMPLETE" },
+            { type: "addStoryFlag", flag: "CHAPTER_1_COMPLETE" },
+            {
+              type: "advanceQuestStep",
+              questId: "quest_rescue_dad_ch1",
+              step: 6,
+              nextStep: "Return home and speak to Mum.",
+            },
             { type: "addBadge", badgeId: "Hay Tournament Champion" },
             { type: "addCoins", amount: 100 },
             {

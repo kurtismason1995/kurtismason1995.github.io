@@ -3,67 +3,7 @@ import { TextMessage } from "./../TextMessage.js";
 import { SubmissionMenu } from "./SubmissionMenu.js";
 import { BattleAnimations } from "./BattleAnimations.js";
 import { ReplacementMenu } from "./ReplacementMenu.js";
-
-function determineMultiplier(damageType, targetType) {
-  switch (damageType) {
-    case "stone":
-      switch (targetType) {
-        case "fly":
-          return 1.5; // stone is strong against fly
-        case "water":
-          return 0.7; // stone is weak against water
-        default:
-          return 1; // stone does neutral damage against all other types
-      }
-    case "fly":
-      switch (targetType) {
-        case "shadow":
-          return 1.5; // fly is strong against shadow
-        case "stone":
-          return 0.7; // fly is weak against stone
-        default:
-          return 1; // fly does neutral damage against all other types
-      }
-    case "fire":
-      switch (targetType) {
-        case "nature":
-          return 1.5; // fire is strong against nature
-        case "water":
-          return 0.7; // fire is weak against water
-        default:
-          return 1; // fire does neutral damage against all other types
-      }
-    case "water":
-      switch (targetType) {
-        case "fire":
-          return 1.5; // water is strong against fire
-        case "shadow":
-          return 0.7; // water is weak against shadow
-        default:
-          return 1; // water does neutral damage against all other types
-      }
-    case "shadow":
-      switch (targetType) {
-        case "stone":
-          return 1.5; // shadow is strong against stone
-        case "nature":
-          return 0.7; // shadow is weak against nature
-        default:
-          return 1; // shadow does neutral damage against all other types
-      }
-    case "nature":
-      switch (targetType) {
-        case "water":
-          return 1.5; // nature is strong against water
-        case "fire":
-          return 0.7; // nature is weak against fire
-        default:
-          return 1; // nature does neutral damage against all other types
-      }
-    default:
-      return 1; // if the damage type is not recognized, assume it does neutral damage
-  }
-}
+import { getTypeMultiplier } from "../content/typeChart.js";
 
 export class BattleEvent {
   constructor(event, battle) {
@@ -72,6 +12,11 @@ export class BattleEvent {
   }
 
   textMessage(resolve) {
+    if (this.event.submission?.lastMoveMissed && this.event.text?.includes("{EFFECTIVENESS}")) {
+      resolve();
+      return;
+    }
+
     let text = this.event.text
       .replace("{CASTER}", this.event.caster?.name)
       .replace("{TARGET}", this.event.target?.name)
@@ -81,7 +26,7 @@ export class BattleEvent {
       const attackType = this.event.action.type;
       const targetType = this.event.target.type;
 
-      const multiplier = determineMultiplier(attackType, targetType);
+      const multiplier = getTypeMultiplier(attackType, targetType);
       if (multiplier === 1.5) {
         text = text.replace("{EFFECTIVENESS}", "SUPER");
       } else if (multiplier === 0.7) {
@@ -109,31 +54,88 @@ export class BattleEvent {
       who = caster;
     }
 
+    const isOffensiveTarget = action.targetType !== "friendly";
+    const shouldRollAccuracy = damage && isOffensiveTarget && !this.event.onCaster;
+
+    if (shouldRollAccuracy) {
+      const baseAccuracy = caster.getActionAccuracy(action);
+      const accuracyMultiplier = caster.getAccuracyMultiplier();
+      const evasionMultiplier = target.getEvasionMultiplier();
+      const hitChance = Math.max(0.05, Math.min(0.99, (baseAccuracy * accuracyMultiplier) / evasionMultiplier));
+      const hitRoll = Math.random();
+
+      if (hitRoll > hitChance) {
+        this.event.submission.lastMoveMissed = true;
+        const missMessage = new TextMessage({
+          text: `${caster.name}'s ${action.name} missed!`,
+          onComplete: () => {
+            resolve();
+          },
+        });
+
+        missMessage.init(this.battle.element);
+        return;
+      }
+    }
+
+    this.event.submission.lastMoveMissed = false;
+
     if (damage) {
       const damageTarget = this.event.onCaster ? caster : target;
-      const damageTypeMultiplier = determineMultiplier(damageType, damageTarget.type);
+      let damageTypeMultiplier = getTypeMultiplier(damageType, damageTarget.type);
+      if (damageType === "water" && damageTarget.status?.type === "soaked") {
+        damageTypeMultiplier *= 1.2;
+      }
+
       const levelDiff = caster.level - damageTarget.level;
       const levelMultiplier = 1 + 0.2 * levelDiff;
       const guardMultiplier = damageTarget.status?.type === "harden" ? 0.7 : 1;
+      const varianceMultiplier = 0.9 + Math.random() * 0.2;
+      const isCritical = Math.random() < 0.12;
+      const criticalMultiplier = isCritical ? 1.6 : 1;
       const actualDamage =
         damage *
         (caster.attack / damageTarget.defense) *
         damageTypeMultiplier *
         Math.max(0.3, levelMultiplier) *
-        guardMultiplier;
+        guardMultiplier *
+        varianceMultiplier *
+        criticalMultiplier;
 
-      console.log(
+      utils.debug(
         "damage",
         actualDamage,
-        `${damage} * (${caster.attack} / ${target.defense}) * ${damageTypeMultiplier} * ${Math.max(
+        `${damage} * (${caster.attack} / ${damageTarget.defense}) * ${damageTypeMultiplier} * ${Math.max(
           0.3,
           levelMultiplier
-        )}`
+        )} * ${guardMultiplier} * ${varianceMultiplier} * ${criticalMultiplier}`
       );
-      target.update({
+      damageTarget.update({
         hp: Math.max(0, damageTarget.hp - actualDamage),
       });
       damageTarget.animalElement.classList.add("battle-damage-blink");
+
+      if (damageTarget.status?.type === "thorn-guard" && damageTarget !== caster && caster.hp > 0) {
+        const reflectedDamage = Math.max(1, Math.round(actualDamage * 0.15));
+        caster.update({
+          hp: Math.max(0, caster.hp - reflectedDamage),
+        });
+        await new Promise((next) => {
+          new TextMessage({
+            text: `${caster.name} is pricked by thorn guard for ${reflectedDamage} damage!`,
+            onComplete: next,
+          }).init(this.battle.element);
+        });
+      }
+
+      if (isCritical) {
+        await new Promise((next) => {
+          new TextMessage({
+            text: "Critical hit!",
+            onComplete: next,
+          }).init(this.battle.element);
+        });
+      }
     }
 
     if (recover) {

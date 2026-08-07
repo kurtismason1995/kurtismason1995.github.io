@@ -5,7 +5,7 @@ window.Enemies = {
     animals: {
       b: {
         animalId: "Wingcluck",
-        maxHp: 60,
+        maxHp: 58,
         level: 1,
       },
     },
@@ -16,7 +16,7 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Cinderhog",
-        maxHp: 60,
+        maxHp: 58,
         level: 1,
       },
       b: {
@@ -32,12 +32,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Wingcluck",
-        maxHp: 60,
+        maxHp: 56,
         level: 1,
       },
       b: {
         animalId: "Waterhog",
-        maxHp: 60,
+        maxHp: 58,
         level: 1,
       },
     },
@@ -48,7 +48,7 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Fernhorn",
-        maxHp: 80,
+        maxHp: 74,
         level: 2,
       },
     },
@@ -59,7 +59,7 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Wingcluck",
-        maxHp: 80,
+        maxHp: 74,
         level: 2,
       },
     },
@@ -70,7 +70,7 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Cinderhog",
-        maxHp: 80,
+        maxHp: 76,
         level: 2,
       },
     },
@@ -82,12 +82,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Wingcluck",
-        maxHp: 55,
+        maxHp: 58,
         level: 1,
       },
       b: {
         animalId: "PebbleRam",
-        maxHp: 55,
+        maxHp: 58,
         level: 1,
       },
     },
@@ -99,12 +99,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Fernhorn",
-        maxHp: 85,
+        maxHp: 82,
         level: 2,
       },
       b: {
         animalId: "Waterhog",
-        maxHp: 85,
+        maxHp: 82,
         level: 2,
       },
     },
@@ -116,13 +116,13 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Grassmoo",
-        maxHp: 80,
+        maxHp: 82,
         level: 2,
       },
       b: {
         animalId: "Darksteed",
-        maxHp: 60,
-        level: 1,
+        maxHp: 72,
+        level: 2,
       },
     },
   },
@@ -133,12 +133,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Grasserpent",
-        maxHp: 60,
+        maxHp: 62,
         level: 1,
       },
       b: {
         animalId: "Waterhog",
-        maxHp: 60,
+        maxHp: 62,
         level: 1,
       },
     },
@@ -150,12 +150,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "RockClaw",
-        maxHp: 60,
+        maxHp: 62,
         level: 1,
       },
       b: {
         animalId: "Sparksqueak",
-        maxHp: 60,
+        maxHp: 62,
         level: 1,
       },
     },
@@ -166,7 +166,7 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Waterhog",
-        maxHp: 100,
+        maxHp: 105,
         level: 3,
       },
     },
@@ -177,12 +177,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Shadeferret",
-        maxHp: 80,
+        maxHp: 84,
         level: 2,
       },
       b: {
         animalId: "Fernhorn",
-        maxHp: 80,
+        maxHp: 84,
         level: 2,
       },
     },
@@ -193,7 +193,7 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Darksteed",
-        maxHp: 120,
+        maxHp: 110,
         level: 3,
       },
     },
@@ -204,12 +204,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Cinderhog",
-        maxHp: 120,
+        maxHp: 108,
         level: 3,
       },
       b: {
         animalId: "Brookantler",
-        maxHp: 120,
+        maxHp: 104,
         level: 3,
       },
     },
@@ -220,12 +220,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Wingcluck",
-        maxHp: 80,
+        maxHp: 82,
         level: 2,
       },
       b: {
         animalId: "Waterhog",
-        maxHp: 120,
+        maxHp: 102,
         level: 3,
       },
     },
@@ -236,12 +236,12 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "RockClaw",
-        maxHp: 80,
+        maxHp: 82,
         level: 2,
       },
       b: {
         animalId: "Aeroonyx",
-        maxHp: 80,
+        maxHp: 82,
         level: 2,
       },
     },
@@ -252,28 +252,28 @@ window.Enemies = {
     animals: {
       a: {
         animalId: "Sparksqueak",
-        maxHp: 80,
+        maxHp: 82,
         level: 2,
       },
       b: {
         animalId: "Grasserpent",
-        maxHp: 120,
+        maxHp: 102,
         level: 3,
       },
     },
   },
-  Mick2: {
+  Fred2: {
     name: "Fred",
     src: "./assets/characters/people/merchant1.png",
     animals: {
       a: {
         animalId: "Grassmoo",
-        maxHp: 80,
+        maxHp: 82,
         level: 2,
       },
       b: {
         animalId: "Aeroonyx",
-        maxHp: 80,
+        maxHp: 82,
         level: 2,
       },
     },
@@ -281,10 +281,11 @@ window.Enemies = {
   enemy1: {
     name: "Anthony",
     src: "./assets/characters/people/blacksmith.png",
+    reward: 24,
     animals: {
       a: {
         animalId: "Pyrogoat",
-        maxHp: 100,
+        maxHp: 104,
         level: 3,
       },
       b: {
@@ -297,15 +298,16 @@ window.Enemies = {
   enemy2: {
     name: "Malakai",
     src: "./assets/characters/people/blacksmith2.png",
+    reward: 26,
     animals: {
       a: {
         animalId: "Fernhorn",
-        maxHp: 100,
+        maxHp: 108,
         level: 3,
       },
       b: {
         animalId: "Brookantler",
-        maxHp: 100,
+        maxHp: 104,
         level: 3,
       },
     },
@@ -313,15 +315,16 @@ window.Enemies = {
   enemy3: {
     name: "Xander",
     src: "./assets/characters/people/blacksmith.png",
+    reward: 32,
     animals: {
       a: {
         animalId: "Darksteed",
-        maxHp: 150,
+        maxHp: 138,
         level: 4,
       },
       b: {
         animalId: "Grassmoo",
-        maxHp: 150,
+        maxHp: 132,
         level: 4,
       },
     },
@@ -329,15 +332,16 @@ window.Enemies = {
   enemy4: {
     name: "Thorne",
     src: "./assets/characters/people/blacksmith2.png",
+    reward: 34,
     animals: {
       a: {
         animalId: "Cinderhog",
-        maxHp: 150,
+        maxHp: 136,
         level: 4,
       },
       b: {
         animalId: "Zephyrtail",
-        maxHp: 150,
+        maxHp: 134,
         level: 4,
       },
     },
@@ -345,20 +349,21 @@ window.Enemies = {
   boss: {
     name: "Morgath",
     src: "./assets/characters/people/bartender2.png",
+    reward: 130,
     animals: {
       a: {
         animalId: "RockClaw",
-        maxHp: 200,
-        level: 5,
+        maxHp: 155,
+        level: 4,
       },
       b: {
         animalId: "Aquaminotaur",
-        maxHp: 200,
+        maxHp: 160,
         level: 5,
       },
       c: {
         animalId: "Shadowfang",
-        maxHp: 200,
+        maxHp: 165,
         level: 5,
       },
     },

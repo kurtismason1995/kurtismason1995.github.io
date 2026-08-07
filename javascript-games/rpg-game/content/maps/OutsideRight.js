@@ -735,6 +735,8 @@ export const OutsideRight = {
         exclude: "INVITATION_ACCEPTED",
         events: [
           { type: "addStoryFlag", flag: "INVITATION_ACCEPTED" },
+          { type: "addStoryFlag", flag: "CHAPTER_1_MID_COMPLETE" },
+          { type: "addStoryFlag", flag: "CHAPTER_1_CLIMAX_STARTED" },
           { who: "hero", type: "stand", direction: "right", time: 200 },
           { type: "textMessage", text: "Welcome to the tournment of Hay!", faceHero: "npc9" },
           {

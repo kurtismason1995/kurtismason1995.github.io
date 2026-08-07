@@ -416,6 +416,32 @@ export const OutsideBottom = {
         ],
       },
     ],
+    [utils.asGridCoord(27, 7)]: [
+      {
+        events: [
+          {
+            type: "changeMap",
+            map: "BramblePath",
+            x: utils.withGrid(1),
+            y: utils.withGrid(7),
+            direction: "right",
+          },
+        ],
+      },
+    ],
+    [utils.asGridCoord(27, 8)]: [
+      {
+        events: [
+          {
+            type: "changeMap",
+            map: "BramblePath",
+            x: utils.withGrid(1),
+            y: utils.withGrid(8),
+            direction: "right",
+          },
+        ],
+      },
+    ],
     /* LowerLeft - Map changing end */
   },
 };

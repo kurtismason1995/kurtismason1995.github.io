@@ -6,6 +6,7 @@ import { Progress } from "./Progress.js";
 import { TitleScreen } from "./TitleScreen.js";
 import { SceneTransition } from "./SceneTransition.js";
 import { TouchControls } from "./TouchControls.js";
+import { utils } from "./utils.js";
 
 export class Game {
   constructor(config) {
@@ -78,8 +79,8 @@ export class Game {
     });
 
     new KeyPressListener("Escape", () => {
-      if (!this.map.isCutScenePlaying && !this.map.isPaused) {
-        this.map.startCustscene([{ type: "pause" }]);
+      if (!this.map.isCutscenePlaying && !this.map.isPaused) {
+        this.map.startCutscene([{ type: "pause" }]);
       }
     });
   }
@@ -101,6 +102,11 @@ export class Game {
       this.progress.startingHeroDirection = hero.direction;
     }
     this.progress.save();
+    utils.debug("Auto-saved progress", {
+      mapId: this.progress.mapId,
+      x: this.progress.startingHeroX,
+      y: this.progress.startingHeroY,
+    });
   }
 
   bindAutoSave() {
@@ -129,6 +135,15 @@ export class Game {
     if (heroInitialState) {
       this.map.checkForFootstepCutscene();
     }
+
+    utils.debug("Map started", {
+      mapId: mapConfig.id,
+      hero: {
+        x: this.map.gameObjects.hero.x,
+        y: this.map.gameObjects.hero.y,
+        direction: this.map.gameObjects.hero.direction,
+      },
+    });
 
     this.autoSave();
   }

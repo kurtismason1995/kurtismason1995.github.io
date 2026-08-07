@@ -52,6 +52,13 @@ const socialEventCutscene = [
       { type: "stand", who: "npc3", direction: "down", time: 200 },
       { type: "textMessage", text: "* Tony hands you an invitation to the tournment. *" },
       { type: "addStoryFlag", flag: "ARENA_INVITATION" },
+      { type: "addStoryFlag", flag: "CHAPTER_1_MID_STARTED" },
+      {
+        type: "advanceQuestStep",
+        questId: "quest_rescue_dad_ch1",
+        step: 3,
+        nextStep: "Take the invitation to the Hay Tournament gate in the north-east district.",
+      },
       { type: "walk", who: "npc3", direction: "right" },
       { type: "walk", who: "npc3", direction: "right" },
       { type: "stand", who: "npc5", direction: "left", time: 200 },

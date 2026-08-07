@@ -27,6 +27,7 @@ export class GameMap {
 
     this.hugMapCorners = config.hugMapCorners || false;
     this.isCutscenePlaying = false;
+    this.isCutScenePlaying = false;
     this.isPaused = false;
   }
 
@@ -157,8 +158,9 @@ export class GameMap {
     });
   }
 
-  async startCustscene(events) {
+  async startCutscene(events) {
     this.isCutscenePlaying = true;
+    this.isCutScenePlaying = true;
 
     for (let i = 0; i < events.length; i++) {
       const eventHandler = new GameEvent({
@@ -172,6 +174,12 @@ export class GameMap {
     }
 
     this.isCutscenePlaying = false;
+    this.isCutScenePlaying = false;
+  }
+
+  // Legacy typo kept for backwards compatibility with existing callers.
+  async startCustscene(events) {
+    await this.startCutscene(events);
   }
 
   checkForActionCutscene() {
@@ -187,7 +195,7 @@ export class GameMap {
           return window.playerState.storyFlags[sf];
         });
       });
-      relevantScenario && this.startCustscene(relevantScenario.events);
+      relevantScenario && this.startCutscene(relevantScenario.events);
     }
   }
 
@@ -202,7 +210,7 @@ export class GameMap {
 
         return requiredFlags && (!scenario.exclude || !window.playerState.storyFlags[scenario.exclude]);
       });
-      relevantScenario && this.startCustscene(relevantScenario.events);
+      relevantScenario && this.startCutscene(relevantScenario.events);
     }
   }
 }

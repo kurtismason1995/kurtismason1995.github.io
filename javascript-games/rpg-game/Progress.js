@@ -20,6 +20,7 @@ export class Progress {
           lineup: window.playerState.lineup,
           items: window.playerState.items,
           storyFlags: window.playerState.storyFlags,
+          quests: window.playerState.quests,
           coins: window.playerState.coins,
           badges: window.playerState.badges,
           stats: window.playerState.stats,
@@ -50,6 +51,20 @@ export class Progress {
       window.playerState.coins ||= 0;
       window.playerState.badges ||= [];
       window.playerState.stats ||= { battlesWon: 0, animalsRescued: 0 };
+      window.playerState.quests ||= {};
+
+      Object.keys(window.playerState.quests).forEach((questId) => {
+        const quest = window.playerState.quests[questId] || {};
+        window.playerState.quests[questId] = {
+          id: questId,
+          title: quest.title || questId,
+          description: quest.description || "",
+          state: window.playerState.normalizeQuestState(quest.state),
+          step: Number.isFinite(quest.step) ? quest.step : 0,
+          nextStep: quest.nextStep || "",
+        };
+      });
+
       window.playerState.nextId ||= 1;
     }
   }

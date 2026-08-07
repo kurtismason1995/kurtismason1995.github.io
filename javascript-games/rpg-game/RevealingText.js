@@ -3,6 +3,7 @@ export class RevealingText {
     this.element = config.element;
     this.text = config.text;
     this.speed = config.speed || 50;
+    this.onComplete = config.onComplete || (() => {});
 
     this.timeout = null;
     this.isDone = false;
@@ -18,6 +19,7 @@ export class RevealingText {
       }, next.delayAfter);
     } else {
       this.isDone = true;
+      this.onComplete();
     }
   }
 
@@ -40,9 +42,15 @@ export class RevealingText {
 
       characters.push({
         span: span,
-        delayAfter: char === " " ? 0 : this.speed,
+        delayAfter: char === " " || char === "\n" ? 0 : this.speed,
       });
     });
+
+    if (!characters.length) {
+      this.isDone = true;
+      this.onComplete();
+      return;
+    }
 
     this.revealOneCharacter(characters);
   }

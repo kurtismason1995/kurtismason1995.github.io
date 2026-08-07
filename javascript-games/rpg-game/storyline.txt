@@ -1,18 +1,62 @@
-This is a possible storyline for the game
+RPG Main Story Chapter Flow
 
-The player takes on the role of a farmer who has grown up working on their father's farm. The father is a renowned expert in animal breeding, having developed new techniques that have made his animals stronger and more resilient than any others in the region.
+This file defines the current chapter structure with concrete progression flags and battle gates.
 
-One day, the father disappears, and the player is left to investigate. They soon discover that their father has been taken by a powerful and mysterious organization that seeks to control his breeding techniques and use them for their own purposes.
+Chapter 1: Intro (Home to Old Man)
+- Theme: Personal stakes and first commitment.
+- Start flag: CHAPTER_1_INTRO_STARTED.
+- Completion flag: CHAPTER_1_INTRO_COMPLETE.
+- Existing supporting flags: SEEN_INTRO, SEEN_OLDMAN_CUTSCENE.
+- Core beats:
+	- Sam learns Dad is missing (Home intro cutscene).
+	- Sam receives Rocky.
+	- Old Man grants a second partner and points Sam east.
+- Gate to next chapter:
+	- Completing Old Man sequence sets CHAPTER_1_INTRO_COMPLETE and starts mid chapter.
 
-The player sets out on a quest to rescue their father and bring down the organization. Along the way, they must train their farm animals to become strong and skilled fighters, using their unique abilities and strengths to overcome obstacles and defeat enemies.
+Chapter 1: Mid (Town Hall Conspiracy)
+- Theme: Discovery and rising threat.
+- Start flag: CHAPTER_1_MID_STARTED.
+- Completion flag: CHAPTER_1_MID_COMPLETE.
+- Existing supporting flags: SEEN_SOCIALROOM_SCENE, ARENA_INVITATION, INVITATION_ACCEPTED.
+- Core beats:
+	- Sam witnesses Tony and Sandy conflict in Social Club Room.
+	- Sam receives tournament invitation tied to Dad's location.
+	- Gate guard verifies invitation and grants arena entry.
+- Gate to next chapter:
+	- Invitation accepted sets CHAPTER_1_MID_COMPLETE and CHAPTER_1_CLIMAX_STARTED.
 
-The player must battle their way through the organization's forces, facing off against heavily armed guards, fierce beasts, and powerful mutants. As they progress, they gain experience and new abilities, allowing them to improve their own combat skills and those of their animal companions.
+Chapter 1: Climax (Hay Tournament Gauntlet)
+- Theme: Direct confrontation through escalating trials.
+- Start flag: CHAPTER_1_CLIMAX_STARTED.
+- Completion flag: CHAPTER_1_CLIMAX_COMPLETE.
+- Existing supporting flags: SEEN_ARENA_CUTSCENE, DEFEATED_ENEMY_1..4.
+- Chapter-end battle gate:
+	- Must defeat enemy1, enemy2, enemy3, enemy4 before boss unlock.
+- Core beats:
+	- Arena reveal confirms Dad is captive.
+	- Sam clears four challengers to reach the leader.
+- Gate to next chapter:
+	- Defeating the fourth challenger sets CHAPTER_1_CLIMAX_COMPLETE and CHAPTER_1_FINALE_STARTED.
 
-Throughout the journey, the player must also collect resources and recruit new animal companions to their cause, each with their own unique abilities and personalities. These animals can be trained and leveled up, giving the player an ever-growing arsenal of fighting companions.
+Chapter 1: Finale (Boss and Rescue)
+- Theme: Payoff and liberation.
+- Start flag: CHAPTER_1_FINALE_STARTED.
+- Completion flag: CHAPTER_1_FINALE_COMPLETE.
+- Existing supporting flag: DEFEATED_BOSS.
+- Chapter-end battle:
+	- Boss battle in Arena against boss team.
+- Core beats:
+	- Sam defeats the leader.
+	- Dad is freed and family arc resolves.
+	- Home and town post-victory dialogue opens.
 
-In the final showdown, the player and their animal companions confront the leaders of the organization in a fierce battle. The player must use all their skills and the strength of their animals to overcome the powerful enemy forces.
+Global completion marker
+- CHAPTER_1_COMPLETE is set after the boss defeat to mark the end of the main arc currently implemented.
 
-After defeating the organization and rescuing their father, the player must return home to their farm. They are hailed as heroes in their village, and their father's breeding techniques are recognized as a valuable asset for the community. The player and their animals retire to a peaceful life on the farm, but the memory of the organization's evil deeds drives them to continue training and fighting, ready to defend their home and their loved ones at all costs.
+Implementation notes
+- Keep legacy flags for backward compatibility with existing saves.
+- New chapter flags should be additive and set at milestone cutscene points.
 
 
 

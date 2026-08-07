@@ -1,11 +1,76 @@
 import { utils } from "../utils.js";
 
+function ensureFallbackAction() {
+  if (!window.Actions) {
+    window.Actions = {};
+  }
+
+  if (!window.Actions.__fallback_action__) {
+    window.Actions.__fallback_action__ = {
+      name: "Struggle",
+      description: "A basic move used when no valid actions are available.",
+      accuracy: 1,
+      energyCost: 0,
+      cooldownTurns: 0,
+      success: [
+        { type: "textMessage", text: "{CASTER} struggles to attack!" },
+        { type: "stateChange", damage: 10, damageType: "stone" },
+      ],
+    };
+  }
+
+  return "__fallback_action__";
+}
+
 export class Combatant {
   constructor(config, battle) {
+    this.validationWarnings = [];
+
     Object.keys(config).forEach((key) => {
       this[key] = config[key];
     });
+
+    this.name = this.name || "Unknown Animal";
+    this.type = this.type || "stone";
+    this.src = this.src || "./assets/characters/animals/static/cow.png";
+    this.icon = this.icon || "./assets/icons/stone.png";
+    this.level = this.level || 1;
+    this.attack = this.attack || 10;
+    this.defense = this.defense || 10;
+    this.maxHp = this.maxHp || 50;
+    this.maxXp = this.maxXp || 100;
+    this.xp = typeof this.xp === "number" ? this.xp : 0;
+    this.maxEnergy = this.maxEnergy || 100;
+    this.energyRegen = this.energyRegen || 12;
+
+    const fallbackActionId = ensureFallbackAction();
+    const sourceActions = Array.isArray(this.actions) ? this.actions : [];
+    const invalidActions = [];
+    this.actions = sourceActions.filter((actionId) => {
+      const isValid = !!window.Actions?.[actionId];
+      if (!isValid) {
+        invalidActions.push(actionId);
+      }
+      return isValid;
+    });
+
+    if (invalidActions.length) {
+      this.validationWarnings.push(
+        `${this.name} has missing action ids: ${invalidActions.join(", ")}. Added fallback action instead.`
+      );
+      utils.warn("Combatant action validation failed", {
+        combatant: this.name,
+        invalidActions,
+      });
+    }
+
+    if (!this.actions.length) {
+      this.actions = [fallbackActionId];
+    }
+
     this.hp = typeof this.hp === "undefined" ? this.maxHp : this.hp;
+    this.energy = typeof this.energy === "number" ? this.energy : this.maxEnergy;
+    this.actionCooldowns = this.actionCooldowns || {};
     this.battle = battle;
   }
 
@@ -25,6 +90,123 @@ export class Combatant {
 
   get givesXp() {
     return this.level * 15 + 40;
+  }
+
+  getAccuracyMultiplier() {
+    let multiplier = 1;
+    if (this.status?.type === "clumsy") {
+      multiplier *= 0.85;
+    }
+    if (this.status?.type === "soaked") {
+      multiplier *= 0.9;
+    }
+    return multiplier;
+  }
+
+  getEvasionMultiplier() {
+    let multiplier = 1;
+    if (this.status?.type === "soaked") {
+      multiplier *= 0.8;
+    }
+    if (this.status?.type === "harden") {
+      multiplier *= 0.9;
+    }
+    return multiplier;
+  }
+
+  getActionData(actionId) {
+    return window.Actions?.[actionId] || null;
+  }
+
+  getActionEnergyCost(action) {
+    return typeof action?.energyCost === "number" ? Math.max(0, action.energyCost) : 0;
+  }
+
+  getActionCooldown(action) {
+    return typeof action?.cooldownTurns === "number" ? Math.max(0, action.cooldownTurns) : 0;
+  }
+
+  getActionAccuracy(action) {
+    return typeof action?.accuracy === "number" ? Math.min(1, Math.max(0.05, action.accuracy)) : 1;
+  }
+
+  getActionCooldownRemaining(actionId) {
+    return this.actionCooldowns[actionId] || 0;
+  }
+
+  canUseAction(actionId) {
+    const action = this.getActionData(actionId);
+    if (!action) {
+      return false;
+    }
+
+    if (this.getActionCooldownRemaining(actionId) > 0) {
+      return false;
+    }
+
+    return this.energy >= this.getActionEnergyCost(action);
+  }
+
+  getActionBlockReason(actionId) {
+    const action = this.getActionData(actionId);
+    if (!action) {
+      return "Unavailable";
+    }
+
+    const turnsLeft = this.getActionCooldownRemaining(actionId);
+    if (turnsLeft > 0) {
+      return `Cooldown: ${turnsLeft} turn${turnsLeft === 1 ? "" : "s"}`;
+    }
+
+    const cost = this.getActionEnergyCost(action);
+    if (this.energy < cost) {
+      return `Need ${cost} energy`;
+    }
+
+    return "Ready";
+  }
+
+  getUsableActionIds() {
+    return this.actions.filter((actionId) => this.canUseAction(actionId));
+  }
+
+  tickActionCooldowns() {
+    Object.keys(this.actionCooldowns).forEach((actionId) => {
+      const nextValue = Math.max(0, (this.actionCooldowns[actionId] || 0) - 1);
+      if (nextValue === 0) {
+        delete this.actionCooldowns[actionId];
+      } else {
+        this.actionCooldowns[actionId] = nextValue;
+      }
+    });
+  }
+
+  beginTurn() {
+    this.tickActionCooldowns();
+    this.energy = Math.min(this.maxEnergy, this.energy + this.energyRegen);
+    this.update();
+  }
+
+  commitAction(actionId) {
+    if (!actionId) {
+      return;
+    }
+    const action = this.getActionData(actionId);
+    if (!action) {
+      return;
+    }
+
+    const cost = this.getActionEnergyCost(action);
+    const cooldown = this.getActionCooldown(action);
+
+    this.energy = Math.max(0, this.energy - cost);
+    if (cooldown > 0) {
+      this.actionCooldowns[actionId] = cooldown;
+    }
+
+    this.lastActionId = actionId;
+
+    this.update();
   }
 
   createElement() {
@@ -85,6 +267,9 @@ export class Combatant {
   }
 
   getReplacedEvents(originalEvents) {
+    if (this.status?.type === "stunned") {
+      return [{ type: "textMessage", text: `${this.name} is stunned and cannot move!` }];
+    }
     if (this.status?.type === "clumsy" && utils.randomFromArray([true, false, false])) {
       return [{ type: "textMessage", text: `${this.name} is stumbling around.` }];
     }
@@ -95,13 +280,18 @@ export class Combatant {
     if (this.status?.type === "regen") {
       return [
         { type: "textMessage", text: "You regenerate some health" },
-        { type: "stateChange", recover: 15, onCaster: true },
+        { type: "stateChange", recover: 10, onCaster: true },
       ];
     }
     if (this.status?.type === "burned") {
       return [
         { type: "textMessage", text: `${this.name} is hurt by the burn!` },
-        { type: "stateChange", damage: 8, damageType: "fire", onCaster: true },
+        { type: "stateChange", damage: 6, damageType: "fire", onCaster: true },
+      ];
+    }
+    if (this.status?.type === "soaked") {
+      return [
+        { type: "textMessage", text: `${this.name} is dripping wet and off balance.` },
       ];
     }
     return [];
