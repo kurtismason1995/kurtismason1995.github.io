@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asteroids | Kurtis Mason</title>
+    <meta
+      name="description"
+      content="A classic Asteroids arcade game made with JavaScript and HTML5 canvas."
+    />
+    <meta name="author" content="Kurtis Mason" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="hud-bar">
+        <div class="hud-group">
+          <span class="hud-label">Score</span>
+          <span id="score" class="hud-value">0</span>
+        </div>
+        <div class="hud-group">
+          <span class="hud-label">Lives</span>
+          <span id="lives" class="hud-value">3</span>
+        </div>
+        <div class="hud-group">
+          <span class="hud-label">Level</span>
+          <span id="level" class="hud-value">1</span>
+        </div>
+      </header>
+
+      <section class="canvas-wrap">
+        <canvas id="game" width="960" height="600">
+          Your browser does not support the HTML5 canvas tag.
+        </canvas>
+      </section>
+
+      <footer class="controls">
+        <a href="../index.html" class="btn">Back</a>
+        <p>
+          Controls: <strong>Left/Right</strong> turn, <strong>Up</strong>
+          thrust, <strong>Space</strong> shoot, <strong>P</strong> pause,
+          <strong>R</strong> restart.
+        </p>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

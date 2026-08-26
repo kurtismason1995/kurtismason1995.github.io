@@ -5,6 +5,9 @@ This is a collection of JavaScript games I have created for my portfolio. They a
 ### 2048
 A JavaScript version of the popular game 2048. Combine tiles with the same number to reach the 2048 tile.
 
+### Asteroids
+A classic arcade space shooter built with HTML5 canvas. Rotate, thrust, and blast asteroids while surviving through increasingly difficult levels.
+
 ### RPG Game
 An RPG game where the player explores a world, interacts with NPCs, and battles enemies.
 

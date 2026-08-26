@@ -4,6 +4,193 @@
   }
 }
 
-article {
+:root {
+  --clr-accent-500: hsl(12, 60%, 45%);
+  --clr-accent-400: hsl(12, 88%, 59%);
+  --clr-primary-400: hsl(228, 39%, 23%);
+  --clr-neutral-100: hsl(0, 0%, 100%);
+  --clr-surface-soft: hsl(156, 33%, 96%);
+  --clr-surface-warm: hsl(38, 70%, 97%);
+  --clr-meadow-400: hsl(132, 38%, 38%);
+}
+
+body {
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.two {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 86% 20%, hsl(45, 100%, 80%, 0.3), transparent 20rem),
+    linear-gradient(145deg, var(--clr-surface-warm), var(--clr-neutral-100) 60%);
+}
+
+#portfolio .container {
+  max-width: 72rem;
+}
+
+#portfolio header {
+  margin-bottom: 2.2rem;
+}
+
+#portfolio header h2 {
+  color: var(--clr-primary-400);
+  margin: 0.4rem 0 0;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+}
+
+.section-label {
+  color: var(--clr-meadow-400);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.page-intro {
+  margin: 0.9rem 0 0;
+  color: color-mix(in srgb, var(--clr-primary-400) 82%, white);
+  max-width: 60ch;
+  line-height: 1.65;
+}
+
+.games-list {
+  padding-top: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1.4rem;
+}
+
+.game-card {
   cursor: pointer;
+  width: 100%;
+  min-height: 16rem;
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--clr-primary-400) 14%, transparent);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.game-card:hover,
+.game-card:focus-within {
+  transform: translateY(-0.35rem);
+  box-shadow: 0 1.5rem 3rem color-mix(in srgb, var(--clr-primary-400) 20%, transparent);
+}
+
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.65));
+}
+
+.game-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.72), transparent 48%);
+}
+
+.game-card .card-layer {
+  position: absolute;
+  inset: auto 0 0 0;
+  min-height: 62%;
+  background: linear-gradient(
+    transparent,
+    color-mix(in srgb, var(--clr-primary-400) 90%, transparent)
+  );
+  color: var(--clr-neutral-100);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  padding: 1.45rem;
+  transition: min-height 0.25s ease, background 0.25s ease;
+  z-index: 1;
+}
+
+.game-card:hover .card-layer,
+.game-card:focus-within .card-layer {
+  min-height: 74%;
+  background: linear-gradient(
+    transparent,
+    color-mix(in srgb, var(--clr-meadow-400) 80%, var(--clr-primary-400))
+  );
+}
+
+.game-card .title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.game-card .description {
+  margin: 0;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.project-link {
+  width: fit-content;
+  margin-top: 0.25rem;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.project-link span {
+  display: inline-block;
+  margin-left: 0.2rem;
+  transition: transform 0.2s ease;
+}
+
+.project-link:hover span,
+.project-link:focus-visible span {
+  transform: translateX(0.3rem);
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  border-color: rgba(255, 255, 255, 0.88);
+}
+
+.project-link:focus-visible {
+  outline: 2px solid var(--clr-neutral-100);
+  outline-offset: 0.24rem;
+}
+
+.game-card.farmer-boy {
+  background: linear-gradient(145deg, #83b772, #4e8960);
+}
+
+.game-card.snakes {
+  background: linear-gradient(145deg, #5ea38f, #307363);
+}
+
+.game-card.scroller {
+  background: linear-gradient(145deg, #678cd5, #3f5f9e);
+}
+
+.game-card.game2048 {
+  background: linear-gradient(145deg, #e3a15f, #be6a38);
+}
+
+.game-card.asteroids {
+  background: linear-gradient(145deg, #6d74d8, #3f448f);
+}
+
+@media screen and (max-width: 736px) {
+  .page-intro {
+    margin-top: 0.7rem;
+  }
+
+  .game-card {
+    min-height: 14.4rem;
+  }
 }
