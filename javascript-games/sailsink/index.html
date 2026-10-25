@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b3a52" />
+    <title>Pirate.io</title>
+    <script type="module" crossorigin src="./assets/index-BnfUPEeX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DbKKAe4-.css">
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+    <div id="tags"></div>
+
+    <div id="hud" class="hidden">
+      <div id="leaderboard" class="panel">
+        <h3>Leaderboard</h3>
+        <ol id="lb-list"></ol>
+        <div id="lb-count"></div>
+      </div>
+
+      <div id="toasts"></div>
+
+      <div id="bars">
+        <div class="cannons">
+          <div class="cd"><span>Q</span><div class="track"><i id="cd-port"></i></div></div>
+          <div class="cd"><div class="track"><i id="cd-star"></i></div><span>E</span></div>
+        </div>
+        <div class="bar hp"><i id="hp-fill"></i><b id="hp-text"></b></div>
+        <div class="bar xp"><i id="xp-fill"></i><b id="xp-text"></b></div>
+        <div id="sail-row">Sails <div class="track"><i id="sail-fill"></i></div></div>
+      </div>
+
+      <div id="upgrades" class="panel">
+        <h3>Upgrades <span id="points"></span></h3>
+        <div id="upgrade-rows"></div>
+      </div>
+
+      <canvas id="minimap" width="168" height="168"></canvas>
+      <div id="help">W/S sails &middot; A/D steer &middot; Space fire both sides &middot; Q/E port/starboard &middot; click fires toward cursor &middot; 1-5 upgrade &middot; M mute</div>
+    </div>
+
+    <div id="menu" class="overlay">
+      <div class="card">
+        <h1>Pirate<span>.io</span></h1>
+        <p class="tag">Collect treasure. Grow your ship. Sink everyone.</p>
+        <input id="name" maxlength="16" placeholder="Captain name" autocomplete="off" spellcheck="false" />
+        <button id="play" disabled>Connecting&hellip;</button>
+        <ul class="tips">
+          <li><b>W / S</b> raise or lower sails, <b>A / D</b> steer</li>
+          <li><b>Space</b> fires both broadsides, <b>Q</b> port, <b>E</b> starboard</li>
+          <li>Grab floating crates to level up, then spend points with <b>1-5</b></li>
+          <li>Ships can't turn on the spot. Get broadside to your target.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="dead" class="overlay hidden">
+      <div class="card">
+        <h2>Ye be sunk!</h2>
+        <p id="dead-by"></p>
+        <p id="dead-stats"></p>
+        <button id="again">Sail again</button>
+      </div>
+    </div>
+
+    <div id="conn" class="overlay hidden">
+      <div class="card">
+        <h2>Connection lost</h2>
+        <p>The server went away.</p>
+        <button onclick="location.reload()">Reconnect</button>
+      </div>
+    </div>
+
+  </body>
+</html>
