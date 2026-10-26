@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b3a52" />
     <title>Pirate.io</title>
-    <script type="module" crossorigin src="./assets/index-BnfUPEeX.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DbKKAe4-.css">
+    <script type="module" crossorigin src="./assets/index-DJiF6zpS.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CjhrZ4Be.css">
   </head>
   <body>
     <canvas id="game"></canvas>
@@ -17,6 +17,7 @@
         <h3>Leaderboard</h3>
         <ol id="lb-list"></ol>
         <div id="lb-count"></div>
+        <div id="lb-room" class="hidden"></div>
       </div>
 
       <div id="toasts"></div>
@@ -32,12 +33,17 @@
       </div>
 
       <div id="upgrades" class="panel">
-        <h3>Upgrades <span id="points"></span></h3>
+        <h3 id="upgrades-toggle">Upgrades <span id="points"></span></h3>
         <div id="upgrade-rows"></div>
       </div>
 
       <canvas id="minimap" width="168" height="168"></canvas>
       <div id="help">W/S sails &middot; A/D steer &middot; Space fire both sides &middot; Q/E port/starboard &middot; click fires toward cursor &middot; 1-5 upgrade &middot; M mute</div>
+
+      <div id="touch-ui">
+        <div id="stick"><div id="stick-knob"></div></div>
+        <button id="fire-btn">Fire</button>
+      </div>
     </div>
 
     <div id="menu" class="overlay">
@@ -46,10 +52,30 @@
         <p class="tag">Collect treasure. Grow your ship. Sink everyone.</p>
         <input id="name" maxlength="16" placeholder="Captain name" autocomplete="off" spellcheck="false" />
         <button id="play" disabled>Connecting&hellip;</button>
+        <div id="friends">
+          <div id="friends-public">
+            <p class="friends-label">Play with friends</p>
+            <div class="friends-row">
+              <button id="create-room" class="secondary">Create private room</button>
+              <input id="code" maxlength="4" placeholder="CODE" autocomplete="off" spellcheck="false" />
+              <button id="join-room" class="secondary">Join</button>
+            </div>
+          </div>
+          <div id="friends-private" class="hidden">
+            <p class="friends-label">Private room <b id="room-code"></b></p>
+            <div class="friends-row">
+              <button id="copy-link" class="secondary">Copy invite link</button>
+              <button id="leave-room" class="secondary">Back to public seas</button>
+            </div>
+          </div>
+        </div>
         <ul class="tips">
-          <li><b>W / S</b> raise or lower sails, <b>A / D</b> steer</li>
-          <li><b>Space</b> fires both broadsides, <b>Q</b> port, <b>E</b> starboard</li>
-          <li>Grab floating crates to level up, then spend points with <b>1-5</b></li>
+          <li class="kbd-only"><b>W / S</b> raise or lower sails, <b>A / D</b> steer</li>
+          <li class="kbd-only"><b>Space</b> fires both broadsides, <b>Q</b> port, <b>E</b> starboard</li>
+          <li class="kbd-only">Grab floating crates to level up, then spend points with <b>1-5</b></li>
+          <li class="touch-only">Point the <b>stick</b> where to sail; push further for more sail</li>
+          <li class="touch-only"><b>Fire</b> shoots both sides, or tap the sea to fire that side</li>
+          <li class="touch-only">Grab floating crates to level up, then tap <b>Upgrades</b></li>
           <li>Ships can't turn on the spot. Get broadside to your target.</li>
         </ul>
       </div>
@@ -66,9 +92,10 @@
 
     <div id="conn" class="overlay hidden">
       <div class="card">
-        <h2>Connection lost</h2>
-        <p>The server went away.</p>
+        <h2 id="conn-title">Connection lost</h2>
+        <p id="conn-text">The server went away.</p>
         <button onclick="location.reload()">Reconnect</button>
+        <button id="conn-public" class="secondary hidden" onclick="location.href = location.pathname">Go to public seas</button>
       </div>
     </div>
 
