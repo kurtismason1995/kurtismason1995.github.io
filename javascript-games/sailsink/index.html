@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b3a52" />
-    <title>Pirate.io</title>
-    <script type="module" crossorigin src="./assets/index-DJiF6zpS.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CjhrZ4Be.css">
+    <title>sailsink.io</title>
+    <script type="module" crossorigin src="./assets/index-BFZjpQet.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DtV2WeI7.css">
   </head>
   <body>
     <canvas id="game"></canvas>
@@ -18,11 +18,14 @@
         <ol id="lb-list"></ol>
         <div id="lb-count"></div>
         <div id="lb-room" class="hidden"></div>
+        <div id="lb-bounty" class="hidden"></div>
+        <div id="lb-nemesis" class="hidden"></div>
       </div>
 
       <div id="toasts"></div>
 
       <div id="bars">
+        <div id="buffs"></div>
         <div class="cannons">
           <div class="cd"><span>Q</span><div class="track"><i id="cd-port"></i></div></div>
           <div class="cd"><div class="track"><i id="cd-star"></i></div><span>E</span></div>
@@ -37,6 +40,12 @@
         <div id="upgrade-rows"></div>
       </div>
 
+      <div id="class-pick" class="panel hidden">
+        <h3>Choose your ship</h3>
+        <div id="class-options"></div>
+      </div>
+      <div id="edge-warn" class="hidden">Thick fog ahead. Turn back to open sea!</div>
+
       <canvas id="minimap" width="168" height="168"></canvas>
       <div id="help">W/S sails &middot; A/D steer &middot; Space fire both sides &middot; Q/E port/starboard &middot; click fires toward cursor &middot; 1-5 upgrade &middot; M mute</div>
 
@@ -48,10 +57,16 @@
 
     <div id="menu" class="overlay">
       <div class="card">
-        <h1>Pirate<span>.io</span></h1>
+        <h1>sailsink<span>.io</span></h1>
         <p class="tag">Collect treasure. Grow your ship. Sink everyone.</p>
         <input id="name" maxlength="16" placeholder="Captain name" autocomplete="off" spellcheck="false" />
         <button id="play" disabled>Connecting&hellip;</button>
+        <div id="looks">
+          <div class="look-row"><span>Sails</span><div id="sail-picks"></div></div>
+          <div class="look-row"><span>Flag</span><div id="flag-picks"></div></div>
+          <div class="look-row"><span>Hull</span><div id="hull-picks"></div></div>
+          <p id="looks-best"></p>
+        </div>
         <div id="friends">
           <div id="friends-public">
             <p class="friends-label">Play with friends</p>
@@ -85,8 +100,13 @@
       <div class="card">
         <h2>Ye be sunk!</h2>
         <p id="dead-by"></p>
-        <p id="dead-stats"></p>
+        <div id="dead-stats"></div>
+        <p id="dead-best"></p>
+        <p id="dead-unlock" class="hidden"></p>
+        <div id="dead-next" class="hidden"><p></p><div class="track"><i></i></div></div>
         <button id="again">Sail again</button>
+        <button id="to-menu" class="secondary">Change your ship's look</button>
+        <p class="dead-hint kbd-only">or press Enter</p>
       </div>
     </div>
 
@@ -95,7 +115,7 @@
         <h2 id="conn-title">Connection lost</h2>
         <p id="conn-text">The server went away.</p>
         <button onclick="location.reload()">Reconnect</button>
-        <button id="conn-public" class="secondary hidden" onclick="location.href = location.pathname">Go to public seas</button>
+        <button id="conn-public" class="secondary hidden">Go to public seas</button>
       </div>
     </div>
 
